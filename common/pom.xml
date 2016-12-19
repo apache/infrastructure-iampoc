@@ -24,13 +24,17 @@ under the License.
   <parent>
     <groupId>org.apache.infra</groupId>
     <artifactId>iampoc</artifactId>
-    <version>0.1-SNAPSHOT</version>
+    <version>1.0-SNAPSHOT</version>
   </parent>
 
   <name>IAM PoC - Common</name>
   <groupId>org.apache.infra</groupId>
-  <artifactId>common</artifactId>
+  <artifactId>syncope-common</artifactId>
   <packaging>jar</packaging>
+
+  <properties>
+    <rootpom.basedir>${basedir}/..</rootpom.basedir>
+  </properties>
 
   <dependencies>
 

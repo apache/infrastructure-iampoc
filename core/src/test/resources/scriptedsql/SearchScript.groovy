@@ -83,8 +83,8 @@ if (query != null)  {
 
 switch ( objectClass ) {
 case "__PRINTER__":
-  sql.eachRow("SELECT * FROM TESTPRINTER " + where, 
-    {result.add([__UID__:it.id, __NAME__:it.id, location:it.location])} );
+  sql.eachRow("SELECT * FROM TESTPRINTER " + where + ((where?.trim ()) ? "AND" : "WHERE") + " deleted <> TRUE", 
+    {result.add([__UID__:it.id, __NAME__:it.id, ID:it.id, PRINTERNAME:it.printername, LOCATION:it.location])} );
   break
 
 default:

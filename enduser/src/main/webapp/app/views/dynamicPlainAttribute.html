@@ -1,0 +1,132 @@
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+        
+  http://www.apache.org/licenses/LICENSE-2.0
+    
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<div ng-switch="schema.type" class="schema-type">
+  <input ng-switch-when="String" class="form-control" type="text"
+         ng-model="user.plainAttrs[schema.key].values[index]"
+         ng-required="{{schema.mandatoryCondition}}" validate="true"
+         ng-disabled="schema.readonly" ng-init="initAttribute(schema, index)" name="{{schema.key}}"/>
+
+  <div ng-switch-when="Encrypted" class="input-group input-group-sm">
+    <span class="input-group-btn">  
+      <button type="button" class="btn btn-default btn-flat"
+              confirm="{{'CONFIRM_REMOVE'| translate}}"
+              onclick="var pwd = $(this).parent().next('input');
+                  if (pwd.is('[readonly]')) {
+                    if (pwd.val() === '') {
+                      pwd.removeAttr('readonly');
+                      $(this).children().attr('class', 'fa fa-unlock');
+                    } else {
+                      var response = confirm($(this).attr('confirm'));
+                      if (response == true) {
+                        pwd.removeAttr('readonly');
+                        pwd.val('');
+                        $(this).children().attr('class', 'fa fa-unlock');
+                      }
+                    }
+                  }
+              ">
+        <i class="fa fa-lock"></i>
+      </button>
+    </span>
+    <input class="form-control" type="password" readonly="true"
+           ng-model="user.plainAttrs[schema.key].values[index]"
+           ng-required="{{schema.mandatoryCondition}}" validate="true"
+           ng-disabled="schema.readonly" ng-init="initAttribute(schema, index)" name="{{schema.key}}"/>
+    <span class="input-group-btn">  
+      <button type="button" class="btn btn-default btn-flat"
+              onmousedown="var pwd = $(this).parent().prev('input');
+                  if (!pwd.is('[readonly]')) {
+                    pwd.attr('type', 'text');
+                    $(this).children().attr('class', 'fa fa-eye-slash');
+                  }"
+              onmouseup="var pwd = $(this).parent().prev('input');
+                  if (!pwd.is('[readonly]')) {
+                    pwd.attr('type', 'password');
+                    $(this).children().attr('class', 'fa fa-eye');
+                  }"
+              >
+        <i class="fa fa-eye"></i>
+      </button>
+    </span>
+  </div>
+
+  <div ng-switch-when="Boolean">
+    <input type="checkbox" ng-model="user.plainAttrs[schema.key].values[index]" ng-required="{{schema.mandatoryCondition}}" 
+           ng-init="initAttribute(schema, index)" />
+  </div>
+
+  <input ng-switch-when="Long" class="form-control" type="number" ng-model="user.plainAttrs[schema.key].values[index]" 
+         ng-required="{{schema.mandatoryCondition}}" validate="true"
+         ng-init="initAttribute(schema, index)" name="{{schema.key}}"/>
+
+  <input ng-switch-when="Double" class="form-control" type="number" ng-model="user.plainAttrs[schema.key].values[index]"
+         ng-required="{{schema.mandatoryCondition}}" validate="true"
+         ng-init="initAttribute(schema, index)" name="{{schema.key}}"/>
+
+  <div ng-switch-when="Date" id="date">
+    <span id="datetime">
+      <input type="text" class="form-control" 
+             uib-datepicker-popup
+             ng-model="selectedDate"
+             ng-change="bindDateToModel(selectedDate, selectedTime)"
+             min-date="minDate" max-date="maxDate"
+             is-open="status.opened" datepicker-options="dateOptions"
+             ng-required="{{schema.mandatoryCondition}}" close-text="Close"
+             ng-init="initAttribute(schema, index)"/>
+      <button type="button" class="btn btn-default" ng-click="open($event)" >
+        <i class="glyphicon glyphicon-calendar"></i>
+      </button>
+    </span>
+    <span id="timepicker" ng-if="(schema.conversionPattern.indexOf('H') > -1 ||
+                schema.conversionPattern.indexOf('h') > -1)">
+      <uib-timepicker ng-model="selectedTime" 
+                      ng-change="bindDateToModel(selectedDate, selectedTime)"
+                      hour-step="hstep" minute-step="mstep" show-meridian="ismeridian">
+      </uib-timepicker>
+    </span>
+  </div>
+
+  <div ng-switch-when="Enum" ng-init="initAttribute(schema, index)">
+    <select class="form-control"
+            ng-model="user.plainAttrs[schema.key].values[index]"
+            ng-required="{{schema.mandatoryCondition}}">
+      <option ng-repeat="value in enumerationValues" value="{{value}}">
+        {{schema.enumerationKeys[$index]|| value}}
+      </option>
+    </select>
+  </div>
+
+  <div ng-switch-when="Binary" ng-init="initAttribute(schema, index)">
+    <input file-input type="file" id="fileInput" name="fileInput"/>
+    <button type="button" title="Download file" class="fileButton btn btn-default btn-sm" ng-click="download()">
+      <i class="glyphicon glyphicon-download" ></i>
+    </button>
+  </div>
+
+  <input ng-switch-default class="form-control" type="text"
+         ng-model="user.plainAttrs[schema.key].values[index]"
+         ng-required="{{schema.mandatoryCondition}}" 
+         ng-disabled="schema.readonly" ng-init="initAttribute(schema, index)"/>
+</div>
+
+
+
+
+

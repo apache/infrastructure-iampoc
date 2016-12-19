@@ -24,13 +24,17 @@ under the License.
   <parent>
     <groupId>org.apache.infra</groupId>
     <artifactId>iampoc</artifactId>
-    <version>0.1-SNAPSHOT</version>
+    <version>1.0-SNAPSHOT</version>
   </parent>
 
   <name>IAM PoC - Console</name>
   <groupId>org.apache.infra</groupId>
-  <artifactId>console</artifactId>
+  <artifactId>syncope-console</artifactId>
   <packaging>war</packaging>
+
+  <properties>
+    <rootpom.basedir>${basedir}/..</rootpom.basedir>
+  </properties>
 
   <dependencies>
 
@@ -49,7 +53,7 @@ under the License.
 
     <dependency>
       <groupId>org.apache.infra</groupId>
-      <artifactId>common</artifactId>
+      <artifactId>syncope-common</artifactId>
       <version>${project.version}</version>
     </dependency>  
     
@@ -105,7 +109,7 @@ under the License.
     </dependency>
     <dependency>
       <groupId>org.activiti</groupId>
-      <artifactId>activiti-webapp-explorer2</artifactId>
+      <artifactId>activiti-webapp-explorer2</artifactId>            
       <type>war</type>
       <scope>test</scope>
     </dependency>
@@ -315,6 +319,18 @@ ORYX.Editor.createByUrl = function(modelUrl){"/>
           </plugin>
         </plugins>  
       </build>
+    </profile>
+    
+    <profile>
+      <id>all</id>
+      
+      <dependencies>
+        <dependency>
+          <groupId>org.apache.syncope.ext.camel</groupId>
+          <artifactId>syncope-ext-camel-client-console</artifactId>
+          <version>${syncope.version}</version>
+        </dependency> 
+      </dependencies>
     </profile>
   </profiles>
 </project>

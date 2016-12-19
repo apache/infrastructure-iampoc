@@ -24,7 +24,7 @@ under the License.
   
   <import resource="classpath*:domains/*Domain.xml"/>
   
-  <bean class="org.apache.syncope.core.misc.spring.DomainTransactionInterceptorInjector"/>
+  <bean class="org.apache.syncope.core.persistence.jpa.spring.DomainTransactionInterceptorInjector"/>
   
   <bean id="commonEMFConf" class="org.apache.syncope.core.persistence.jpa.spring.CommonEntityManagerFactoryConf">
     <property name="packagesToScan" value="org.apache.syncope.core.persistence.jpa.entity"/>
@@ -42,9 +42,9 @@ under the License.
         value="PrintParameters=true, PrettyPrint=true, PrettyPrintLineLength=80"/>-->
                                 
         <entry key="openjpa.NontransactionalWrite" value="false"/>
-        <entry key="openjpa.AutoDetach" value="close, commit, nontx-read, rollback"/>
 
-        <entry key="openjpa.jdbc.SchemaFactory" value="native(ForeignKeys=true)"/>
+        <!-- Removed: see https://s.apache.org/openjpaSchemaFactory for more information
+        <entry key="openjpa.jdbc.SchemaFactory" value="native(ForeignKeys=true)"/>-->
         <entry key="openjpa.jdbc.MappingDefaults" 
                value="ForeignKeyDeleteAction=restrict, JoinForeignKeyDeleteAction=restrict"/>
                 
@@ -52,7 +52,7 @@ under the License.
         <entry key="openjpa.QueryCache" value="true"/>
         <entry key="openjpa.RemoteCommitProvider" value="sjvm"/>
       </map>
-    </property>    
+    </property>
   </bean>
   
 </beans>

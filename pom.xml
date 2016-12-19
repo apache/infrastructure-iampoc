@@ -22,22 +22,22 @@ under the License.
   <parent>
     <groupId>org.apache.syncope</groupId>
     <artifactId>syncope</artifactId>
-    <version>2.0.0-SNAPSHOT</version>
+    <version>2.0.1</version>
   </parent>
 
   <properties>
-    <syncope.version>2.0.0-SNAPSHOT</syncope.version>
-    <secretKey>sdfjlsdkjfklsdjfsdf</secretKey>
-    <anonymousKey>dasfjhalfkjsdjflsdjklfsd</anonymousKey>
+    <syncope.version>2.0.1</syncope.version>
+    <secretKey>asdasdadqferfsd999edf</secretKey>
+    <anonymousKey>xfsdsfsfd4444</anonymousKey>
     
-    <rat.skip>true</rat.skip>
-    <checkstyle.skip>true</checkstyle.skip>
+    <rat.skip>false</rat.skip>
+    <checkstyle.skip>false</checkstyle.skip>
   </properties>
 
-  <name>IAM PoC</name>
-  <groupId>org.apache.infra</groupId>
+  <name>IAM PoC</name> 
+  <groupId>org.apache.infra</groupId> 
   <artifactId>iampoc</artifactId>
-  <version>0.1-SNAPSHOT</version>
+  <version>1.0-SNAPSHOT</version>
   <packaging>pom</packaging>
 
   <dependencyManagement>
@@ -109,13 +109,4 @@ under the License.
     <module>enduser</module>
   </modules>
 
-  <repositories>
-    <repository>
-      <id>ASF</id>
-      <url>https://repository.apache.org/content/repositories/snapshots/</url>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
-    </repository>
-  </repositories>
 </project>
